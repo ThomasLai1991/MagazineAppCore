@@ -1,0 +1,59 @@
+﻿@page
+@model MagazineAppCore.Pages.ClientsModel
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<h1>Clients</h1>
+<P>Showing Results @(Model.PageIndex*50-49) to @(Model.PageIndex*50-49+Model.PageResultCount) from  @Model.Count Results</P>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Last Edited Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Clients)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_cln)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_cln)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastedit_cln)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@{
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+
+
+<a asp-page="./Clients"
+   asp-route-pageIndex="@(Model.PageIndex-1)"
+   class="btn btn-default @prevDisabled">Previous</a>
+
+<a asp-page="./Clients"
+   asp-route-pageIndex="@(Model.PageIndex + 1)"
+   class="btn @nextDisabled">Next</a>
